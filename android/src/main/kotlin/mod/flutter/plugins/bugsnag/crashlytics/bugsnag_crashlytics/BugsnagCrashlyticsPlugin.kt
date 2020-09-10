@@ -48,6 +48,15 @@ class BugsnagCrashlyticsPlugin: FlutterPlugin, MethodCallHandler {
     } else if (call.method == "Crashlytics#report") {
       if(bugsnagStarted)
         Bugsnag.notify(Exception(call.argument<String>("information")))
+
+    } else if (call.method == "Crashlytics#setUserData") {
+      if(bugsnagStarted) {
+        val userId = call.argument<String>("user_id")
+        val userEmail = call.argument<String>("user_email")
+        val userName = call.argument<String>("user_name")
+
+        Bugsnag.setUser(userId, userEmail, userName);
+      }
     } else {
       result.notImplemented()
     }
