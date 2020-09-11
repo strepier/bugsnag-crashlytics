@@ -43,9 +43,9 @@ class BugsnagCrashlytics {
     String userName,
   }) async {
     Map<String, String> userData;
-    userData['user_id'] = userId;
-    userData['user_email'] = userEmail;
-    userData['user_name'] = userName;
+    userData.putIfAbsent('user_id', () => userId);
+    userData.putIfAbsent('user_email', () => userEmail);
+    userData.putIfAbsent('user_name', () => userName);
 
     await _channel.invokeMethod('Crashlytics#setUserData', userData);
   }
