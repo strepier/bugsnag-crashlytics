@@ -43,7 +43,7 @@ class BugsnagCrashlytics {
     String userEmail,
     String userName,
   }) async {
-    HashMap userData = HashMap<int, String>()
+    HashMap userData = HashMap<String, String>();
     userData.putIfAbsent('user_id', () => userId);
     userData.putIfAbsent('user_email', () => userEmail);
     userData.putIfAbsent('user_name', () => userName);
