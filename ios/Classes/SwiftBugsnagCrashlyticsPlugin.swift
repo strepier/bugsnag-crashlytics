@@ -37,6 +37,7 @@ public class SwiftBugsnagCrashlyticsPlugin: NSObject, FlutterPlugin {
       }
     } else if (call.method == "Crashlytics#setUserData") {
         if (bugsnagStarted) {
+            print("Bugsnag WORKING")
             let arguments = call.arguments as? NSDictionary
             
             let userId = arguments!["user_id"] as! String
@@ -44,6 +45,9 @@ public class SwiftBugsnagCrashlyticsPlugin: NSObject, FlutterPlugin {
             let userName = arguments!["user_name"] as! String
             
             Bugsnag.configuration()?.setUser(userId, withName: userName, andEmail: userEmail)
+        }
+        else {
+            print("Bugsnag NOT WORKING AT ALL")
         }
     }
   }
