@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class BugsnagCrashlytics {
     String userEmail,
     String userName,
   }) async {
-    Map<String, String> userData;
+    HashMap userData = HashMap<int, String>()
     userData.putIfAbsent('user_id', () => userId);
     userData.putIfAbsent('user_email', () => userEmail);
     userData.putIfAbsent('user_name', () => userName);
