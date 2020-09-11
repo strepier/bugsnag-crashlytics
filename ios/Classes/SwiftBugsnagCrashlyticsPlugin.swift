@@ -32,12 +32,15 @@ public class SwiftBugsnagCrashlyticsPlugin: NSObject, FlutterPlugin {
       if (bugsnagStarted) {
         let arguments = call.arguments as? NSDictionary
         let info = arguments!["information"] as? String
-        let exception = NSException(name:NSExceptionName(rawValue: "Bugsnag Exception"), reason: info)
+        let exceptionName = arguments!["exception"] as? String ?? "Bugsnag Exception"
+        //let stackTraceElements = arguments!["stackTraceElements"] as? NSDictionary
+        
+        let exception = NSException(name:NSExceptionName(rawValue: exceptionName), reason: info)
         Bugsnag.notify(exception)
+        result(nil)
       }
     } else if (call.method == "Crashlytics#setUserData") {
         if (bugsnagStarted) {
-            print("Bugsnag WORKING")
             let arguments = call.arguments as? NSDictionary
             
             let userId = arguments!["user_id"] as! String
@@ -45,9 +48,7 @@ public class SwiftBugsnagCrashlyticsPlugin: NSObject, FlutterPlugin {
             let userName = arguments!["user_name"] as! String
             
             Bugsnag.configuration()?.setUser(userId, withName: userName, andEmail: userEmail)
-        }
-        else {
-            print("Bugsnag NOT WORKING AT ALL")
+            result(nil)
         }
     }
   }
